@@ -1,0 +1,10 @@
+pub const HX_BOOSTED: &str = "hx-boosted";
+pub const HX_CURRENT_URL: &str = "hx-current-url";
+pub const HX_HISTORY_RESTORE_REQUEST: &str = "hx-history-restore-request";
+pub const HX_PROMPT: &str = "hx-prompt";
+pub const HX_REQUEST: &str = "hx-request";
+pub const HX_REQUEST_TYPE: &str = "hx-request-type";
+pub const HX_SOURCE: &str = "hx-source";
+pub const HX_TARGET: &str = "hx-target";
+pub const HX_TRIGGER: &str = "hx-trigger";
+pub const HX_TRIGGER_NAME: &str = "hx-trigger-name";

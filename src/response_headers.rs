@@ -1,0 +1,12 @@
+pub const HX_LOCATION: &str = "hx-location";
+pub const HX_PUSH: &str = "hx-push";
+pub const HX_PUSH_URL: &str = "hx-push-url";
+pub const HX_REDIRECT: &str = "hx-redirect";
+pub const HX_REFRESH: &str = "hx-refresh";
+pub const HX_REPLACE_URL: &str = "hx-replace-url";
+pub const HX_RESELECT: &str = "hx-reselect";
+pub const HX_RESWAP: &str = "hx-reswap";
+pub const HX_RETARGET: &str = "hx-retarget";
+pub const HX_TRIGGER: &str = "hx-trigger";
+pub const HX_TRIGGER_AFTER_SETTLE: &str = "hx-trigger-after-settle";
+pub const HX_TRIGGER_AFTER_SWAP: &str = "hx-trigger-after-swap";

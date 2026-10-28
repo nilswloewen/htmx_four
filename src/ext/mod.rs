@@ -1,0 +1,10 @@
+pub mod htmx_2_compat;
+pub mod hx_download;
+pub mod hx_history_cache;
+pub mod hx_live;
+pub mod hx_multipart;
+pub mod hx_preload;
+pub mod hx_prompt;
+pub mod hx_ptag;
+pub mod hx_sse;
+pub mod hx_ws;
