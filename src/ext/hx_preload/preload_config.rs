@@ -1,19 +1,17 @@
+use bon::Builder;
 use serde::Serialize;
-use typed_builder::TypedBuilder;
 
 /// The `preload` section of the htmx config, read by the `hx-preload` extension.
-#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, TypedBuilder)]
+#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Builder)]
 #[serde(rename_all = "camelCase")]
+#[builder(on(String, into))]
 pub struct PreloadConfig {
-    #[builder(default, setter(strip_option))]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auto_boost: Option<bool>,
 
-    #[builder(default, setter(strip_option, into))]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub boost_event: Option<String>,
 
-    #[builder(default, setter(strip_option, into))]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub boost_timeout: Option<String>,
 }
