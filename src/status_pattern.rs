@@ -1,13 +1,22 @@
 use http::StatusCode;
 use serde::{Serialize, Serializer};
 
+/// One entry of [`htmx.config.noSwap`](https://four.htmx.org/reference/config/htmx-config-noSwap).
+///
+/// A status code serializes as a number. A class serializes as `"1xx"` through `"5xx"`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum StatusPattern {
+    /// One status code, serialized as a number.
     Exact(StatusCode),
+    /// `"1xx"`.
     Informational,
+    /// `"2xx"`.
     Success,
+    /// `"3xx"`.
     Redirection,
+    /// `"4xx"`.
     ClientError,
+    /// `"5xx"`.
     ServerError,
 }
 

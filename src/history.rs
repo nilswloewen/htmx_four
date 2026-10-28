@@ -1,9 +1,13 @@
 use serde::{Serialize, Serializer};
 
+/// A value of [`htmx.config.history`](https://four.htmx.org/reference/config/htmx-config-history).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum History {
+    /// `true`: push URLs, and restore them with a request.
     Enabled,
+    /// `false`: leave browser history alone.
     Disabled,
+    /// `"reload"`: push URLs, and reload the page on back and forward.
     Reload,
 }
 
