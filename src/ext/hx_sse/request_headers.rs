@@ -1,1 +1,3 @@
-pub const LAST_EVENT_ID: &str = "last-event-id";
+use http::HeaderName;
+
+pub const LAST_EVENT_ID: HeaderName = HeaderName::from_static("last-event-id");

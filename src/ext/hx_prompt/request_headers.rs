@@ -1,1 +1,1 @@
-pub const HX_PROMPT: &str = "hx-prompt";
+pub use crate::request_headers::HX_PROMPT;

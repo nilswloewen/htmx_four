@@ -1,1 +1,3 @@
-pub const HX_DOWNLOAD: &str = "hx-download";
+use http::HeaderName;
+
+pub const HX_DOWNLOAD: HeaderName = HeaderName::from_static("hx-download");

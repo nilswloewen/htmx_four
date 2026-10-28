@@ -1,8 +1,8 @@
 # htmx_four
 
-Typed Rust values for [htmx 4](https://four.htmx.org/docs): the [`htmx.config`](https://four.htmx.org/reference/config/htmx-config) object, core [header names](https://four.htmx.org/reference/headers), and the extensions that ship with htmx.
+Typed Rust values for [htmx 4.0.0](https://github.com/bigskysoftware/htmx/tree/v4.0.0): the [`htmx.config`](https://four.htmx.org/reference/config/htmx-config) object, core [header names](https://four.htmx.org/reference/headers), and the extensions that ship with that release.
 
-`HtmxConfig::to_json` produces the JSON object htmx reads from `<meta name="htmx-config">`. Header constants are lowercase so they work with `http::HeaderName::from_static`.
+`HtmxConfig::to_json` produces the JSON object htmx reads from `<meta name="htmx-config">`. Header constants are `http::HeaderName` values. `as_str` returns the lowercase name.
 
 ## Docs
 

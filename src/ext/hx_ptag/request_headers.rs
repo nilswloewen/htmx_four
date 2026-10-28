@@ -1,1 +1,1 @@
-pub const HX_PTAG: &str = "hx-ptag";
+pub use super::HX_PTAG;
