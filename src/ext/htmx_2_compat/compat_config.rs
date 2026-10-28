@@ -15,6 +15,9 @@ pub struct CompatConfig {
     pub swap_error_response_codes: Option<bool>,
 
     /// The 4.0.0 extension reads the misspelled key `useExplicitInheritace`.
-    #[serde(rename = "useExplicitInheritace", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "useExplicitInheritace",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub use_explicit_inheritance: Option<bool>,
 }

@@ -50,11 +50,18 @@ impl Extension {
     }
 }
 
-pub(crate) fn serialize_extensions<S>(extensions: &Option<Vec<Extension>>, serializer: S) -> Result<S::Ok, S::Error>
+pub(crate) fn serialize_extensions<S>(
+    extensions: &Option<Vec<Extension>>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {
-    let names = extensions.iter().flatten().map(|extension| extension.as_str()).collect::<Vec<_>>();
+    let names = extensions
+        .iter()
+        .flatten()
+        .map(|extension| extension.as_str())
+        .collect::<Vec<_>>();
     names.join(", ").serialize(serializer)
 }
 
