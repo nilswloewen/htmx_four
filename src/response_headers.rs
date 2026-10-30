@@ -3,7 +3,10 @@
 header_names! {
     /// [`HX-Location`](https://four.htmx.org/reference/headers/HX-Location): redirect without a full page load.
     HX_LOCATION = "hx-location";
-    /// [`HX-Push`](https://four.htmx.org/reference/headers/HX-Push): the old name for [`HX-Push-Url`](https://four.htmx.org/reference/headers/HX-Push-Url).
+    /// The htmx 2 `HX-Push` response header.
+    ///
+    /// Requires the `htmx-2-compat` feature. htmx 4 reads [`HX-Push-Url`](https://four.htmx.org/reference/headers/HX-Push-Url).
+    #[cfg(feature = "htmx-2-compat")]
     HX_PUSH = "hx-push";
     /// [`HX-Push-Url`](https://four.htmx.org/reference/headers/HX-Push-Url): push a URL onto the browser history stack.
     HX_PUSH_URL = "hx-push-url";
@@ -23,12 +26,14 @@ header_names! {
     HX_TRIGGER = "hx-trigger";
     /// The htmx 2 `HX-Trigger-After-Settle` response header.
     ///
-    /// htmx 4 uses [`HX-Trigger`](https://four.htmx.org/reference/headers/HX-Trigger) after the swap.
+    /// Requires the `htmx-2-compat` feature. htmx 4 uses [`HX-Trigger`](https://four.htmx.org/reference/headers/HX-Trigger) after the swap.
     /// See [response headers](https://four.htmx.org/docs/whats-new-in-htmx-4#response-headers).
+    #[cfg(feature = "htmx-2-compat")]
     HX_TRIGGER_AFTER_SETTLE = "hx-trigger-after-settle";
     /// The htmx 2 `HX-Trigger-After-Swap` response header.
     ///
-    /// htmx 4 uses [`HX-Trigger`](https://four.htmx.org/reference/headers/HX-Trigger) after the swap.
+    /// Requires the `htmx-2-compat` feature. htmx 4 uses [`HX-Trigger`](https://four.htmx.org/reference/headers/HX-Trigger) after the swap.
     /// See [response headers](https://four.htmx.org/docs/whats-new-in-htmx-4#response-headers).
+    #[cfg(feature = "htmx-2-compat")]
     HX_TRIGGER_AFTER_SWAP = "hx-trigger-after-swap";
 }

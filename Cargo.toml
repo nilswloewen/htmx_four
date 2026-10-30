@@ -12,6 +12,10 @@ rust-version = "1.88"
 [lib]
 path = "src/lib.rs"
 
+[features]
+# Header names htmx 4 no longer sends or reads. Off by default.
+htmx-2-compat = []
+
 [lints.clippy]
 pedantic = { level = "deny", priority = -1 }
 

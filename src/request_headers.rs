@@ -21,12 +21,14 @@ header_names! {
     HX_TARGET = "hx-target";
     /// The htmx 2 `HX-Trigger` request header.
     ///
-    /// htmx 4 sends [`HX-Source`](https://four.htmx.org/reference/headers/HX-Source) instead.
+    /// Requires the `htmx-2-compat` feature. htmx 4 sends [`HX-Source`](https://four.htmx.org/reference/headers/HX-Source) instead.
     /// See [request headers](https://four.htmx.org/docs/whats-new-in-htmx-4#request-headers).
+    #[cfg(feature = "htmx-2-compat")]
     HX_TRIGGER = "hx-trigger";
     /// The htmx 2 `HX-Trigger-Name` request header.
     ///
-    /// htmx 4 removed it. The triggering element is [`HX-Source`](https://four.htmx.org/reference/headers/HX-Source).
+    /// Requires the `htmx-2-compat` feature. htmx 4 removed it. The triggering element is [`HX-Source`](https://four.htmx.org/reference/headers/HX-Source).
     /// See [request headers](https://four.htmx.org/docs/whats-new-in-htmx-4#request-headers).
+    #[cfg(feature = "htmx-2-compat")]
     HX_TRIGGER_NAME = "hx-trigger-name";
 }
