@@ -62,6 +62,7 @@ impl Serialize for SwapStyle {
 
 impl SwapStyle {
     /// The [`hx-swap`](https://four.htmx.org/reference/attributes/hx-swap) style string.
+    #[must_use]
     pub fn as_str(self) -> &'static str {
         self.into()
     }

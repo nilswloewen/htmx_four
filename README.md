@@ -1,4 +1,4 @@
-# htmx_four
+# `htmx_four`
 
 Typed Rust values for [htmx 4.0.0](https://github.com/bigskysoftware/htmx/tree/v4.0.0): the [`htmx.config`](https://four.htmx.org/reference/config/htmx-config) object, core [header names](https://four.htmx.org/reference/headers), and the extensions that ship with that release.
 
@@ -10,7 +10,7 @@ Header constants are lowercase `&'static str` names, for example `request_header
 
 ```toml
 [dependencies]
-htmx_four = "0.1.3"
+htmx_four = "0.1.4"
 ```
 
 ## Docs

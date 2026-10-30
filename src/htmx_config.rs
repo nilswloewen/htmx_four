@@ -179,60 +179,28 @@ mod tests {
 
     #[test]
     fn full_config_serializes_every_extension() {
-        let config = HtmxConfig::builder()
+        let value: serde_json::Value =
+            serde_json::from_str(&full_config().to_json().unwrap()).unwrap();
+        assert_eq!(value, full_config_json());
+    }
+
+    fn full_config() -> HtmxConfig {
+        HtmxConfig::builder()
             .allow_empty_swap_after_oob(true)
             .boost_browser_indicator(true)
-            .compat(
-                CompatConfig::builder()
-                    .do_not_trigger_old_events(true)
-                    .suppress_inheritance_logs(true)
-                    .swap_error_response_codes(false)
-                    .use_explicit_inheritance(true)
-                    .build(),
-            )
+            .compat(compat_config())
             .default_focus_scroll(false)
             .default_settle_delay(20)
             .default_swap(SwapStyle::OuterMorph)
             .default_timeout(5000)
-            .extensions(vec![
-                Extension::Htmx2Compat,
-                Extension::HxAlpineCompat,
-                Extension::HxBrowserIndicator,
-                Extension::HxCsp,
-                Extension::HxDownload,
-                Extension::HxHead,
-                Extension::HxHistoryCache,
-                Extension::HxLive,
-                Extension::HxMultipart,
-                Extension::HxPending,
-                Extension::HxPreload,
-                Extension::HxPrompt,
-                Extension::HxPtag,
-                Extension::HxSse,
-                Extension::HxTargets,
-                Extension::HxUpsert,
-                Extension::HxWs,
-            ])
+            .extensions(official_extensions())
             .history(History::Reload)
-            .history_cache(
-                HistoryCacheConfig::builder()
-                    .disable(false)
-                    .refresh_on_miss(true)
-                    .size(50)
-                    .swap_style(SwapStyle::Upsert)
-                    .build(),
-            )
+            .history_cache(history_cache_config())
             .implicit_inheritance(false)
             .include_indicator_css(false)
             .indicator_class("htmx-indicator")
             .inline_script_nonce("nonce-1")
-            .live(
-                LiveConfig::builder()
-                    .bind_prefix("data-")
-                    .input_debounce("200ms")
-                    .use_dollar(true)
-                    .build(),
-            )
+            .live(live_config())
             .log_all(true)
             .meta_character("hx-")
             .mode(RequestMode::NoCors)
@@ -240,131 +208,187 @@ mod tests {
             .morph_scan_limit(100)
             .morph_skip("ignore")
             .morph_skip_children("skip-kids")
-            .multipart(
-                MultipartConfig::builder()
-                    .pause_on_background(true)
-                    .reconnect(true)
-                    .reconnect_delay("100ms")
-                    .reconnect_jitter(0.5)
-                    .reconnect_max_attempts(8)
-                    .reconnect_max_delay("4s")
-                    .build(),
-            )
+            .multipart(multipart_config())
             .no_swap(vec![StatusPattern::ClientError, StatusPattern::Exact(404)])
             .prefix("hx-")
-            .preload(
-                PreloadConfig::builder()
-                    .auto_boost(true)
-                    .boost_event("mouseover")
-                    .boost_timeout("1s")
-                    .build(),
-            )
+            .preload(preload_config())
             .request_class("htmx-request")
             .safe_eval(false)
-            .sse(
-                SseConfig::builder()
-                    .pause_on_background(true)
-                    .reconnect(true)
-                    .reconnect_delay("500ms")
-                    .reconnect_jitter(0.5)
-                    .reconnect_max_attempts(4)
-                    .reconnect_max_delay("8s")
-                    .release_on(SseReleaseOn::End)
-                    .build(),
-            )
+            .sse(sse_config())
             .transitions(true)
-            .ws(WsConfig::builder()
-                .max_outgoing_messages_queue_size(16)
-                .pause_on_background(true)
-                .protocols(vec!["chat".to_owned()])
-                .reconnect(true)
-                .reconnect_codes(vec![1001, 1012])
-                .reconnect_delay("1s")
-                .reconnect_jitter(0.5)
-                .reconnect_max_attempts(10)
-                .reconnect_max_delay("30s")
-                .build())
-            .build();
+            .ws(ws_config())
+            .build()
+    }
 
-        let value: serde_json::Value = serde_json::from_str(&config.to_json().unwrap()).unwrap();
-        assert_eq!(
-            value,
-            serde_json::json!({
-                "allowEmptySwapAfterOOB": true,
-                "boostBrowserIndicator": true,
-                "compat": {
-                    "doNotTriggerOldEvents": true,
-                    "suppressInheritanceLogs": true,
-                    "swapErrorResponseCodes": false,
-                    "useExplicitInheritace": true
-                },
-                "defaultFocusScroll": false,
-                "defaultSettleDelay": 20,
-                "defaultSwap": "outerMorph",
-                "defaultTimeout": 5000,
-                "extensions": "compat, alpine-compat, browser-indicator, hx-csp, download, hx-head, history-cache, hx-live, hx-multipart, hx-pending, preload, hx-prompt, ptag, sse, hx-targets, upsert, ws",
-                "history": "reload",
-                "historyCache": {
-                    "disable": false,
-                    "refreshOnMiss": true,
-                    "size": 50,
-                    "swapStyle": "upsert"
-                },
-                "implicitInheritance": false,
-                "includeIndicatorCSS": false,
-                "indicatorClass": "htmx-indicator",
-                "inlineScriptNonce": "nonce-1",
-                "live": {
-                    "bindPrefix": "data-",
-                    "inputDebounce": "200ms",
-                    "useDollar": true
-                },
-                "logAll": true,
-                "metaCharacter": "hx-",
-                "mode": "no-cors",
-                "morphIgnore": ["data-skip"],
-                "morphScanLimit": 100,
-                "morphSkip": "ignore",
-                "morphSkipChildren": "skip-kids",
-                "multipart": {
-                    "pauseOnBackground": true,
-                    "reconnect": true,
-                    "reconnectDelay": "100ms",
-                    "reconnectJitter": 0.5,
-                    "reconnectMaxAttempts": 8,
-                    "reconnectMaxDelay": "4s"
-                },
-                "noSwap": ["4xx", 404],
-                "prefix": "hx-",
-                "preload": {
-                    "autoBoost": true,
-                    "boostEvent": "mouseover",
-                    "boostTimeout": "1s"
-                },
-                "requestClass": "htmx-request",
-                "safeEval": false,
-                "sse": {
-                    "pauseOnBackground": true,
-                    "reconnect": true,
-                    "reconnectDelay": "500ms",
-                    "reconnectJitter": 0.5,
-                    "reconnectMaxAttempts": 4,
-                    "reconnectMaxDelay": "8s",
-                    "releaseOn": "end"
-                },
-                "transitions": true,
-                "ws": {
-                    "maxOutgoingMessagesQueueSize": 16,
-                    "pauseOnBackground": true,
-                    "protocols": ["chat"],
-                    "reconnect": true,
-                    "reconnectCodes": [1001, 1012],
-                    "reconnectDelay": "1s",
-                    "reconnectJitter": 0.5,
-                    "reconnectMaxAttempts": 10,
-                    "reconnectMaxDelay": "30s"
-                }
-            })
-        );
+    fn official_extensions() -> Vec<Extension> {
+        vec![
+            Extension::Htmx2Compat,
+            Extension::HxAlpineCompat,
+            Extension::HxBrowserIndicator,
+            Extension::HxCsp,
+            Extension::HxDownload,
+            Extension::HxHead,
+            Extension::HxHistoryCache,
+            Extension::HxLive,
+            Extension::HxMultipart,
+            Extension::HxPending,
+            Extension::HxPreload,
+            Extension::HxPrompt,
+            Extension::HxPtag,
+            Extension::HxSse,
+            Extension::HxTargets,
+            Extension::HxUpsert,
+            Extension::HxWs,
+        ]
+    }
+
+    fn compat_config() -> CompatConfig {
+        CompatConfig::builder()
+            .do_not_trigger_old_events(true)
+            .suppress_inheritance_logs(true)
+            .swap_error_response_codes(false)
+            .use_explicit_inheritance(true)
+            .build()
+    }
+
+    fn history_cache_config() -> HistoryCacheConfig {
+        HistoryCacheConfig::builder()
+            .disable(false)
+            .refresh_on_miss(true)
+            .size(50)
+            .swap_style(SwapStyle::Upsert)
+            .build()
+    }
+
+    fn live_config() -> LiveConfig {
+        LiveConfig::builder()
+            .bind_prefix("data-")
+            .input_debounce("200ms")
+            .use_dollar(true)
+            .build()
+    }
+
+    fn multipart_config() -> MultipartConfig {
+        MultipartConfig::builder()
+            .pause_on_background(true)
+            .reconnect(true)
+            .reconnect_delay("100ms")
+            .reconnect_jitter(0.5)
+            .reconnect_max_attempts(8)
+            .reconnect_max_delay("4s")
+            .build()
+    }
+
+    fn preload_config() -> PreloadConfig {
+        PreloadConfig::builder()
+            .auto_boost(true)
+            .boost_event("mouseover")
+            .boost_timeout("1s")
+            .build()
+    }
+
+    fn sse_config() -> SseConfig {
+        SseConfig::builder()
+            .pause_on_background(true)
+            .reconnect(true)
+            .reconnect_delay("500ms")
+            .reconnect_jitter(0.5)
+            .reconnect_max_attempts(4)
+            .reconnect_max_delay("8s")
+            .release_on(SseReleaseOn::End)
+            .build()
+    }
+
+    fn ws_config() -> WsConfig {
+        WsConfig::builder()
+            .max_outgoing_messages_queue_size(16)
+            .pause_on_background(true)
+            .protocols(vec!["chat".to_owned()])
+            .reconnect(true)
+            .reconnect_codes(vec![1001, 1012])
+            .reconnect_delay("1s")
+            .reconnect_jitter(0.5)
+            .reconnect_max_attempts(10)
+            .reconnect_max_delay("30s")
+            .build()
+    }
+
+    fn full_config_json() -> serde_json::Value {
+        serde_json::json!({
+            "allowEmptySwapAfterOOB": true,
+            "boostBrowserIndicator": true,
+            "compat": {
+                "doNotTriggerOldEvents": true,
+                "suppressInheritanceLogs": true,
+                "swapErrorResponseCodes": false,
+                "useExplicitInheritace": true
+            },
+            "defaultFocusScroll": false,
+            "defaultSettleDelay": 20,
+            "defaultSwap": "outerMorph",
+            "defaultTimeout": 5000,
+            "extensions": "compat, alpine-compat, browser-indicator, hx-csp, download, hx-head, history-cache, hx-live, hx-multipart, hx-pending, preload, hx-prompt, ptag, sse, hx-targets, upsert, ws",
+            "history": "reload",
+            "historyCache": {
+                "disable": false,
+                "refreshOnMiss": true,
+                "size": 50,
+                "swapStyle": "upsert"
+            },
+            "implicitInheritance": false,
+            "includeIndicatorCSS": false,
+            "indicatorClass": "htmx-indicator",
+            "inlineScriptNonce": "nonce-1",
+            "live": {
+                "bindPrefix": "data-",
+                "inputDebounce": "200ms",
+                "useDollar": true
+            },
+            "logAll": true,
+            "metaCharacter": "hx-",
+            "mode": "no-cors",
+            "morphIgnore": ["data-skip"],
+            "morphScanLimit": 100,
+            "morphSkip": "ignore",
+            "morphSkipChildren": "skip-kids",
+            "multipart": {
+                "pauseOnBackground": true,
+                "reconnect": true,
+                "reconnectDelay": "100ms",
+                "reconnectJitter": 0.5,
+                "reconnectMaxAttempts": 8,
+                "reconnectMaxDelay": "4s"
+            },
+            "noSwap": ["4xx", 404],
+            "prefix": "hx-",
+            "preload": {
+                "autoBoost": true,
+                "boostEvent": "mouseover",
+                "boostTimeout": "1s"
+            },
+            "requestClass": "htmx-request",
+            "safeEval": false,
+            "sse": {
+                "pauseOnBackground": true,
+                "reconnect": true,
+                "reconnectDelay": "500ms",
+                "reconnectJitter": 0.5,
+                "reconnectMaxAttempts": 4,
+                "reconnectMaxDelay": "8s",
+                "releaseOn": "end"
+            },
+            "transitions": true,
+            "ws": {
+                "maxOutgoingMessagesQueueSize": 16,
+                "pauseOnBackground": true,
+                "protocols": ["chat"],
+                "reconnect": true,
+                "reconnectCodes": [1001, 1012],
+                "reconnectDelay": "1s",
+                "reconnectJitter": 0.5,
+                "reconnectMaxAttempts": 10,
+                "reconnectMaxDelay": "30s"
+            }
+        })
     }
 }

@@ -67,11 +67,16 @@ impl Extension {
     /// The name passed to `htmx.registerExtension`.
     ///
     /// [`htmx.config.extensions`](https://four.htmx.org/reference/config/htmx-config-extensions) matches this string.
+    #[must_use]
     pub fn as_str(self) -> &'static str {
         self.into()
     }
 }
 
+#[expect(
+    clippy::ref_option,
+    reason = "serde serialize_with passes a reference to the field, which is already an Option"
+)]
 pub(crate) fn serialize_extensions<S>(
     extensions: &Option<Vec<Extension>>,
     serializer: S,
