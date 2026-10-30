@@ -34,11 +34,3 @@ impl Serialize for StatusPattern {
         }
     }
 }
-
-#[cfg(feature = "http")]
-#[cfg_attr(docsrs, doc(cfg(feature = "http")))]
-impl From<http::StatusCode> for StatusPattern {
-    fn from(status: http::StatusCode) -> Self {
-        Self::Exact(status.as_u16())
-    }
-}

@@ -6,4 +6,6 @@ Official docs live at https://four.htmx.org. When you document, name, or change 
 
 When you write or change Rust, follow the BeautifulRust [`rust-best-practices`](https://github.com/morganlinton/BeautifulRust/tree/main/skills/rust-best-practices) skill. Use [`rust-review`](https://github.com/morganlinton/BeautifulRust/tree/main/skills/rust-review) when asked to review. Keep config fields public, keep the enums exhaustive, and keep Clippy at the default `cargo clippy --all-targets -- -D warnings` bar.
 
-Put an Actix or Axum integration in its own crate. Leave this crate without a web framework.
+Header names stay `&str`. An Actix or Axum crate turns a name into a `HeaderName` with `HeaderName::from_static` on the `http` type that framework re-exports.
+
+Put an Actix or Axum integration in its own crate. Leave this crate without a web framework and without a dependency on `http`.
