@@ -4,7 +4,34 @@ Typed Rust values for [htmx 4.0.0](https://github.com/bigskysoftware/htmx/tree/v
 
 The goal is to help Rust users use htmx in its intended way. The types follow the [official docs](https://four.htmx.org/docs), so application code can stay on that path and skip local hacks or workarounds.
 
-`HtmxConfig::to_json` produces the JSON object htmx reads from `<meta name="htmx-config">`. Header constants are `http::HeaderName` values. `as_str` returns the lowercase name.
+`HtmxConfig::to_json` produces the JSON object htmx reads from `<meta name="htmx-config">`.
+
+Header constants are lowercase `&'static str` names, so they work with any web framework and any version of the `http` crate. The [features](#features) add typed `HeaderName` copies.
+
+## Features
+
+No feature is on by default. The default build depends on no `http` crate.
+
+| Feature | Adds | Use it with |
+|---|---|---|
+| *(none)* | Header names as lowercase `&'static str` constants, for example `request_headers::HX_REQUEST`. | Any framework, and any version of the `http` crate. |
+| `http` | A child `http` module in each header module, with the same names as `http::HeaderName` constants, for example `request_headers::http::HX_REQUEST`. Also `From<http::StatusCode>` for `StatusPattern`. | Frameworks on the latest `http` release, such as axum, hyper and reqwest. |
+
+```toml
+[dependencies]
+htmx_four = { version = "0.1.1", features = ["http"] }
+```
+
+The features are additive. The `&str` constants are always present, and `http` only adds the typed copies beside them.
+
+### The `http` feature tracks the latest `http`
+
+The `http` feature always means the latest major version of the [`http`](https://docs.rs/http) crate, which is 1.x today. When `http` releases a new major version, this crate moves the feature to it and releases a new breaking version of `htmx_four`. There is no feature for an older `http` major.
+
+A framework on an older `http` takes the `&str` names. For example, Actix Web 4 uses `http` 0.2:
+
+- Pass the name directly, as in `.insert_header((HX_REDIRECT, path))` or `headers.get(HX_REQUEST)`.
+- Make a typed name with `HeaderName::from_static(HX_TRIGGER)` where an API needs one.
 
 ## Docs
 
@@ -45,6 +72,6 @@ fn main() -> serde_json::Result<()> {
 }
 ```
 
-Built by htmx CEO [nilswloewen](https://htmx.ceo/).
+Built by htmx CEO [nilswloewen](https://htmx.ceo/) and his trusty clanka's.
 
 ![Official CEO of htmx](assets/nils_ceo.jpeg)

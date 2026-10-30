@@ -1,4 +1,3 @@
-use http::StatusCode;
 use serde::{Serialize, Serializer};
 
 /// One entry of [`htmx.config.noSwap`](https://four.htmx.org/reference/config/htmx-config-noSwap).
@@ -7,7 +6,7 @@ use serde::{Serialize, Serializer};
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum StatusPattern {
     /// One status code, serialized as a number.
-    Exact(StatusCode),
+    Exact(u16),
     /// `"1xx"`.
     Informational,
     /// `"2xx"`.
@@ -26,12 +25,20 @@ impl Serialize for StatusPattern {
         S: Serializer,
     {
         match self {
-            Self::Exact(status) => serializer.serialize_u16(status.as_u16()),
+            Self::Exact(status) => serializer.serialize_u16(*status),
             Self::Informational => serializer.serialize_str("1xx"),
             Self::Success => serializer.serialize_str("2xx"),
             Self::Redirection => serializer.serialize_str("3xx"),
             Self::ClientError => serializer.serialize_str("4xx"),
             Self::ServerError => serializer.serialize_str("5xx"),
         }
+    }
+}
+
+#[cfg(feature = "http")]
+#[cfg_attr(docsrs, doc(cfg(feature = "http")))]
+impl From<http::StatusCode> for StatusPattern {
+    fn from(status: http::StatusCode) -> Self {
+        Self::Exact(status.as_u16())
     }
 }

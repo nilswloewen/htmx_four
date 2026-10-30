@@ -1,3 +1,7 @@
 //! [`HX-PTag`](https://four.htmx.org/extensions/hx-ptag) sent on a poll request.
 
-pub use super::HX_PTAG;
+header_names! {
+    @reexports {
+        HX_PTAG from crate::ext::hx_ptag;
+    }
+}

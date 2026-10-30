@@ -170,7 +170,6 @@ impl HtmxConfig {
 mod tests {
     use super::*;
     use crate::SseReleaseOn;
-    use http::StatusCode;
 
     #[test]
     fn default_config_serializes_to_empty_object() {
@@ -251,10 +250,7 @@ mod tests {
                     .reconnect_max_delay("4s")
                     .build(),
             )
-            .no_swap(vec![
-                StatusPattern::ClientError,
-                StatusPattern::Exact(StatusCode::NOT_FOUND),
-            ])
+            .no_swap(vec![StatusPattern::ClientError, StatusPattern::Exact(404)])
             .prefix("hx-")
             .preload(
                 PreloadConfig::builder()
