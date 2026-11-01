@@ -1,13 +1,13 @@
 # `htmx_four`
 
-Typed Rust values for [htmx 4.0.0](https://github.com/bigskysoftware/htmx/tree/v4.0.0): the [`htmx.config`](https://four.htmx.org/reference/config/htmx-config) object, core [header names](https://four.htmx.org/reference/headers), and the extensions that ship with that release.
+Typed Rust values for [htmx 4.0.1](https://github.com/bigskysoftware/htmx/tree/v4.0.1): the [`htmx.config`](https://four.htmx.org/reference/config/htmx-config) object, core [header names](https://four.htmx.org/reference/headers), and the extensions that ship with that release.
 
 The goal is to help Rust users use htmx in its intended way. The types follow the [official docs](https://four.htmx.org/docs), so application code can stay on that path and skip local hacks or workarounds.
 
 This crate is htmx 4 and newer only. It is not backwards compatible with htmx 2. htmx 4 can load [`htmx-2-compat`](https://four.htmx.org/extensions/htmx-2-compat) so an htmx 2 page keeps running, and `CompatConfig` types that extension. The extension does not restore the header names htmx 4 dropped. The Cargo feature of the same name exports those constants:
 
 ```toml
-htmx_four = { version = "0.1.5", features = ["htmx-2-compat"] }
+htmx_four = { version = "0.1.6", features = ["htmx-2-compat"] }
 ```
 
 With that feature the crate also exports the htmx 2 request headers `HX-Trigger` and `HX-Trigger-Name`, and the htmx 2 response headers `HX-Push`, `HX-Trigger-After-Swap`, and `HX-Trigger-After-Settle`. htmx 4 sends [`HX-Source`](https://four.htmx.org/reference/headers/HX-Source) instead of the request `HX-Trigger` headers, and it reads [`HX-Push-Url`](https://four.htmx.org/reference/headers/HX-Push-Url) and [`HX-Trigger`](https://four.htmx.org/reference/headers/HX-Trigger). See the [header changes in htmx 4](https://four.htmx.org/docs/whats-new-in-htmx-4#request-headers).
@@ -20,7 +20,7 @@ Header constants are lowercase `&'static str` names, for example `request_header
 
 ```toml
 [dependencies]
-htmx_four = "0.1.5"
+htmx_four = "0.1.6"
 ```
 
 ## Docs
@@ -37,7 +37,7 @@ htmx_four = "0.1.5"
 
 ## Extensions
 
-This crate supports every [official extension](https://four.htmx.org/extensions) that ships with htmx 4.0.0.
+This crate supports every [official extension](https://four.htmx.org/extensions) that ships with htmx 4.0.1.
 
 `Extension` is the allow-list for [`htmx.config.extensions`](https://four.htmx.org/reference/config/htmx-config-extensions). Variant names follow the script file in htmx `src/ext`. The allow-list name is the string that file passes to `htmx.registerExtension`, and it is not always the file name. `Extension::Custom` covers any other name.
 

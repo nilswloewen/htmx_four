@@ -7,6 +7,14 @@ use serde::Serialize;
 #[serde(rename_all = "camelCase")]
 #[builder(on(String, into))]
 pub struct SseConfig {
+    /// [`connectTimeout`](https://four.htmx.org/extensions/hx-sse#sseconnecttimeout): abort a fetch that takes too long and retry it.
+    ///
+    /// Milliseconds, or a time string such as `5s`. `0` disables the timeout. When this is unset,
+    /// the extension uses [`defaultTimeout`](https://four.htmx.org/reference/config/htmx-config-defaultTimeout).
+    /// On `hx-sse:connect` the same value covers the first fetch and every reconnect.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub connect_timeout: Option<String>,
+
     /// [`pauseOnBackground`](https://four.htmx.org/extensions/hx-sse#ssepauseonbackground): close the stream while the page is hidden.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pause_on_background: Option<bool>,

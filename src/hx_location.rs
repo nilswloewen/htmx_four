@@ -1,13 +1,13 @@
 //! The [`HX-Location`](https://four.htmx.org/reference/headers/HX-Location) response value.
 //!
-//! A bare path tells htmx to `GET` that path. htmx 4.0.0 then pushes history, which is the same
+//! A bare path tells htmx to `GET` that path. htmx 4.0.1 then pushes history, which is the same
 //! as `htmx.ajax('GET', path, { push: 'true' })`. Any other field is one JSON object. `path` is
 //! required either way.
 //!
 //! The JSON fields are the serializable [`htmx.ajax()`](https://four.htmx.org/reference/methods/htmx-ajax#options)
 //! options: `source`, `target`, `swap`, `select`, `selectOOB`, `transition`, `values`, `headers`,
 //! `push`, and `replace`. `event` is the DOM event passed to `htmx.ajax()`, so this header does
-//! not carry it. htmx 4.0.0 does not read a `handler` option.
+//! not carry it. htmx 4.0.1 does not read a `handler` option.
 
 use std::collections::BTreeMap;
 
@@ -19,7 +19,7 @@ use crate::SwapStyle;
 
 /// A [`push`](https://four.htmx.org/reference/headers/HX-Push-Url) or [`replace`](https://four.htmx.org/reference/headers/HX-Replace-Url) instruction.
 ///
-/// `HX-Location` uses the same two values inside its JSON body. htmx 4.0.0 treats boolean
+/// `HX-Location` uses the same two values inside its JSON body. htmx 4.0.1 treats boolean
 /// `false` as "leave history alone", which lets `replace` apply.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum HxUrlHistory {

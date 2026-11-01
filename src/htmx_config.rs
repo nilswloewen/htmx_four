@@ -63,6 +63,10 @@ pub struct HtmxConfig {
     pub history_cache: Option<HistoryCacheConfig>,
 
     /// [`implicitInheritance`](https://four.htmx.org/reference/config/htmx-config-implicitInheritance): inherit attributes without an explicit modifier.
+    ///
+    /// Request verbs, [`hx-action`](https://four.htmx.org/reference/attributes/hx-action), and
+    /// [`hx-trigger`](https://four.htmx.org/reference/attributes/hx-trigger) are never inherited.
+    /// Those still need `:inherited` on the parent.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub implicit_inheritance: Option<bool>,
 
@@ -270,6 +274,7 @@ mod tests {
 
     fn multipart_config() -> MultipartConfig {
         MultipartConfig::builder()
+            .connect_timeout("2s")
             .pause_on_background(true)
             .reconnect(true)
             .reconnect_delay("100ms")
@@ -289,6 +294,7 @@ mod tests {
 
     fn sse_config() -> SseConfig {
         SseConfig::builder()
+            .connect_timeout("5s")
             .pause_on_background(true)
             .reconnect(true)
             .reconnect_delay("500ms")
@@ -352,6 +358,7 @@ mod tests {
             "morphSkip": "ignore",
             "morphSkipChildren": "skip-kids",
             "multipart": {
+                "connectTimeout": "2s",
                 "pauseOnBackground": true,
                 "reconnect": true,
                 "reconnectDelay": "100ms",
@@ -369,6 +376,7 @@ mod tests {
             "requestClass": "htmx-request",
             "safeEval": false,
             "sse": {
+                "connectTimeout": "5s",
                 "pauseOnBackground": true,
                 "reconnect": true,
                 "reconnectDelay": "500ms",

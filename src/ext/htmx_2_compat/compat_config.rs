@@ -21,7 +21,7 @@ pub struct CompatConfig {
 
     /// `useExplicitInheritace`: keep htmx 4 inheritance.
     ///
-    /// The 4.0.0 extension reads that misspelled key. When this is unset, the extension turns
+    /// The 4.0.1 extension reads that misspelled key. When this is unset, the extension turns
     /// [`implicitInheritance`](https://four.htmx.org/reference/config/htmx-config-implicitInheritance) on.
     #[serde(
         rename = "useExplicitInheritace",

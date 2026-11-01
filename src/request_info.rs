@@ -11,7 +11,7 @@ use crate::request_headers::{
 /// [`HX-Source`](https://four.htmx.org/reference/headers/HX-Source), and
 /// [`HX-Target`](https://four.htmx.org/reference/headers/HX-Target).
 ///
-/// A flag is true when [`lookup`](Self::lookup) is given `Some` for that header. htmx 4.0.0 sends
+/// A flag is true when [`lookup`](Self::lookup) is given `Some` for that header. htmx 4.0.1 sends
 /// `true`. The text of `HX-Source` and `HX-Target` is `tagName#id`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct HxRequestInfo<'a> {

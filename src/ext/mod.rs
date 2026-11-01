@@ -1,4 +1,4 @@
-//! Extensions that ship with [htmx 4.0.0](https://four.htmx.org/extensions).
+//! Extensions that ship with [htmx 4.0.1](https://four.htmx.org/extensions).
 //!
 //! Module names follow the script files in `src/ext`. Config sections are also re-exported from the crate root.
 

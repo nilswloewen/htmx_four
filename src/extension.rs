@@ -58,7 +58,7 @@ pub enum Extension {
     /// [`hx-ws`](https://four.htmx.org/extensions/hx-ws), registered as `ws`.
     #[strum(serialize = "ws")]
     HxWs,
-    /// A `registerExtension` name that is not one of the scripts shipped with htmx 4.0.0.
+    /// A `registerExtension` name that is not one of the scripts shipped with htmx 4.0.1.
     #[strum(transparent)]
     Custom(&'static str),
 }
@@ -97,7 +97,7 @@ mod tests {
     use super::Extension;
 
     #[test]
-    fn register_names_match_v4_0_0_scripts() {
+    fn register_names_match_v4_0_1_scripts() {
         assert_eq!(Extension::Htmx2Compat.as_str(), "compat");
         assert_eq!(Extension::HxAlpineCompat.as_str(), "alpine-compat");
         assert_eq!(Extension::HxBrowserIndicator.as_str(), "browser-indicator");

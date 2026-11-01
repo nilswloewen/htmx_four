@@ -2,7 +2,8 @@
 //!
 //! A header that does not start with `{` is a comma-separated list of event names. A header that
 //! starts with `{` is a JSON object whose keys are event names and whose values are event details.
-//! htmx 4 fires these events after the swap.
+//! htmx 4 fires these events after the swap. A JSON `null` detail stays null. htmx 4.0.1 fires
+//! that event and does not throw.
 
 use serde::Serialize;
 use serde_json::Value;
